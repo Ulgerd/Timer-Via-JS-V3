@@ -1,17 +1,18 @@
-var [timer, hours, min, sec] = [];
+var timer;
+var time = [];
 
 function printTimer(fn, state) { 
 
-  [hours, min, sec] = [hours || 0, min || 0, sec || 0];
+  time = [time[0] || 0, time[1] || 0, time[2] || 0];
 
   render = function() {
-    if (sec == 60) {sec = 0, min++};
-    if (min == 60) {min = 0, hours++};
-    return `${(hours < 10) ? '0' + hours : hours}:${(min < 10) ? '0' + min : min}:${(sec < 10) ? '0' + sec++ : sec++}`;
+    if (time[2] == 60) {time[2] = 0, time[1]++};
+    if (time[1] == 60) {time[1] = 0, time[0]++};
+    return `${(time[0] < 10) ? '0' + time[0] : time[0]}:${(time[1] < 10) ? '0' + time[1] : time[1]}:${(time[2] < 10) ? '0' + time[2]++ : time[2]++}`;
   };
 
   if (state.firstRun) {
-    [hours, min, sec] = [0, 0, 0];
+    time = [0, 0, 0];
     fn();
   } else if (state.running) {
     timer = setInterval(fn, 1000);
